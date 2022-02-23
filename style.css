@@ -139,9 +139,11 @@ body{
 }
 .minimize{
     background-color: #2ecc71;
+    cursor: pointer;
 }
 .remove{
-    background-color:#c0392b
+    background-color:#c0392b;
+    cursor: pointer;
 }
 .content-container{
     height: calc(100% - 2rem);

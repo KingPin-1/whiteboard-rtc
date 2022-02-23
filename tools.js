@@ -64,6 +64,10 @@ sticky.addEventListener("click" , (e) => {
     `;
     document.body.appendChild(stickyContainer);
 
+    let remove = stickyContainer.querySelector(".remove");
+    let minimize = stickyContainer.querySelector(".minimize");
+    stickyActions(remove , minimize , stickyContainer);
+
     stickyContainer.onmousedown = function(event) {
         dragNDrop(stickyContainer,event);
       };
@@ -91,4 +95,18 @@ function dragNDrop(element,event){
           document.removeEventListener('mousemove', onMouseMove);
           element.onmouseup = null;
         };
+}
+
+function stickyActions(remove , minimize , stickyContainer){
+    remove.addEventListener("click",(e)=>{
+        stickyContainer.remove();
+    })
+
+    minimize.addEventListener("click" , (e)=>{
+        let content = stickyContainer.querySelector(".content-container");
+        let display = getComputedStyle(content).getPropertyValue("display");
+        console.log(display);
+        if(display == "none") content.style.display = "block";
+        else  content.style.display = "none";
+    })
 }
