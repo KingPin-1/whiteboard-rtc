@@ -18,7 +18,24 @@ body{
     align-items: center;
     border-radius: 500px;
     font-size: 1.5rem;
+    cursor: pointer;
 
+}
+.scale-tools{
+    animation-name: scale-tools;
+    animation-duration: .5s;
+}
+@keyframes scale-tools {
+    0% {
+        transform: scale(0.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+    
+}
+.pencil-image , .eraser-image {
+    cursor: pointer;
 }
 .tools-container{
     display:flex;
@@ -26,7 +43,7 @@ body{
     width: 60vw;
     position: absolute;
     top: 2rem;
-    left: 25vw;
+    left: 25vw; 
     background-color: #63cdda;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     border-radius: 5px;
@@ -80,4 +97,22 @@ body{
 }
 .green{
     background-color: green;
+}
+.eraser-options-container{
+    height: 2rem;
+    width: 7rem;
+    background-color: #63cdda;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    position: absolute;
+    top: 7rem;
+    left: calc(25vw + 8rem + 3px);
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.eraser-options-container input{
+    width: 80%;
 }
