@@ -34,7 +34,7 @@ body{
     }
     
 }
-.pencil-image , .eraser-image {
+.pencil-image , .eraser-image , .notes-image {
     cursor: pointer;
 }
 .tools-container{
@@ -115,4 +115,41 @@ body{
 }
 .eraser-options-container input{
     width: 80%;
+}
+.sticky-notes-container{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    height: 15rem;
+    width: 15rem;
+    position: absolute;
+    top: 20rem;
+    left: 10rem;
+}
+.header{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 2rem;
+    background-color: #bdc3c7;
+}
+.header > * {
+    height: 1.3rem;
+    width: 1.3rem;
+    margin-right: .5rem;
+    border-radius: 20px;
+}
+.minimize{
+    background-color: #2ecc71;
+}
+.remove{
+    background-color:#c0392b
+}
+.content-container{
+    height: calc(100% - 2rem);
+}
+textarea{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    resize: none;
 }
