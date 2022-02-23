@@ -9,6 +9,12 @@ let optionsFlag = true;
 let eraserFlag = false;
 let pencilFlag = false;
 
+document.onload = setDefault();
+function setDefault(){
+    pencilOptionsContainer.style.display = "none";
+    eraserOptionsContainer.style.display = "none";
+}
+
 optionsContainer.addEventListener("click" , (e) => {
     optionsFlag = !optionsFlag;
 
