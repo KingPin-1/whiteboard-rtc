@@ -4,16 +4,22 @@ let pencilOptionsContainer = document.querySelector(".pencil-options-container")
 let eraserOptionsContainer = document.querySelector(".eraser-options-container");
 let pencilImage = document.querySelector(".pencil-image");
 let eraserImage = document.querySelector(".eraser-image");
-let sticky = document.querySelector(".notes-image")
+let sticky = document.querySelector(".notes-image");
+let upload = document.querySelector(".upload-image");
 let optionsFlag = true;
 let eraserFlag = false;
 let pencilFlag = false;
+
+// When document is loaded. 
 
 document.onload = setDefault();
 function setDefault(){
     pencilOptionsContainer.style.display = "none";
     eraserOptionsContainer.style.display = "none";
 }
+
+
+// For options button. 
 
 optionsContainer.addEventListener("click" , (e) => {
     optionsFlag = !optionsFlag;
@@ -38,11 +44,15 @@ function closeTools(){
     eraserOptionsContainer.style.display = "none";
 }
 
+// For pencil tool. 
+
 pencilImage.addEventListener("click" , (e) => {
     pencilFlag = !pencilFlag;
     if(!pencilFlag) pencilOptionsContainer.style.display = "block";
     else    pencilOptionsContainer.style.display = "none";
 })
+
+// For eraser tool. 
 
 eraserImage.addEventListener("click" , (e) => {
     eraserFlag = !eraserFlag;
@@ -50,6 +60,45 @@ eraserImage.addEventListener("click" , (e) => {
     else    eraserOptionsContainer.style.display = "none";
 })
 
+//For upload tool
+upload.addEventListener("click" , (e) => {
+    let input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.click();
+
+    input.addEventListener("change" , (e) =>{
+        let file = input.files[0];
+        let url = URL.createObjectURL(file);
+
+        let stickyContainer = document.createElement("div");
+        stickyContainer.setAttribute("class" ,"sticky-notes-container");
+        stickyContainer.innerHTML = `
+            <div class="header">
+                <div class="minimize"></div>
+                <div class="remove"></div>
+            </div>
+            <div class="content-container">
+                <img src = "${url}" class ="uploaded-image">
+            </div>
+            `;
+        document.body.appendChild(stickyContainer);
+
+        let remove = stickyContainer.querySelector(".remove");
+        let minimize = stickyContainer.querySelector(".minimize");
+        stickyActions(remove , minimize , stickyContainer);
+
+        stickyContainer.onmousedown = function(event) {
+            dragNDrop(stickyContainer,event);
+        };
+        
+        stickyContainer.ondragstart = function() {
+            return false;
+        };
+
+    })
+})
+
+//For Sticky Notes
 sticky.addEventListener("click" , (e) => {
     let stickyContainer = document.createElement("div");
     stickyContainer.setAttribute("class" ,"sticky-notes-container");
@@ -77,6 +126,8 @@ sticky.addEventListener("click" , (e) => {
       };
 })
 
+
+//DRag and drop functionality of sticky notes.
 function dragNDrop(element,event){
     let shiftX = event.clientX - element.getBoundingClientRect().left;
         let shiftY = event.clientY - element.getBoundingClientRect().top;
@@ -97,6 +148,7 @@ function dragNDrop(element,event){
         };
 }
 
+//minimize and remove of sticky notes.
 function stickyActions(remove , minimize , stickyContainer){
     remove.addEventListener("click",(e)=>{
         stickyContainer.remove();

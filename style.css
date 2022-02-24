@@ -34,7 +34,7 @@ body{
     }
     
 }
-.pencil-image , .eraser-image , .notes-image {
+.options-icons{
     cursor: pointer;
 }
 .tools-container{
@@ -156,4 +156,8 @@ textarea{
     outline: none;
     border: none;
     resize: none;
+}
+.uploaded-image{
+    height: 100%;
+    width: 100%;
 }
