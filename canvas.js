@@ -26,7 +26,7 @@ tool.lineWidth = pencilWidth;
 
 undo.addEventListener("click" , (e) => {
     if( tracker > 0 ) tracker--;
-    console.log(tracker);
+    // console.log(tracker);
     let trackObj = {
         trackValue : tracker , 
         undoRedoTracker
