@@ -14,8 +14,48 @@ let eraserColor = "white";
 let pencilWidth = pencilWidthElem.value ;
 let eraserWidth = eraserWidthElem.value ;
 
+let download = document.querySelector(".download-image");
+let undo = document.querySelector(".undo-image");
+let redo = document.querySelector(".redo-image");
+
+let undoRedoTracker = [] ; // keeps all actions performed 
+let tracker = 0 ; //which action from tracker array
+
 tool.strokeStyle = pencilColor;
 tool.lineWidth = pencilWidth;
+
+undo.addEventListener("click" , (e) => {
+    if( tracker > 0 ) tracker--;
+    console.log(tracker);
+    let trackObj = {
+        trackValue : tracker , 
+        undoRedoTracker
+    } 
+    undoRedoCanvas(trackObj);
+})
+
+redo.addEventListener("click" , (e) => {
+    if( tracker < undoRedoTracker.length - 1 ) tracker++;
+    let trackObj = {
+        trackValue : tracker , 
+        undoRedoTracker
+    } 
+    undoRedoCanvas(trackObj);
+})
+
+function undoRedoCanvas(trackObj){
+    tracker = trackObj.trackValue;
+    undoRedoTracker = trackObj.undoRedoTracker;
+
+    let url = undoRedoTracker[tracker];
+    // console.log(tracker);
+    let img = new Image();
+    img.src = url;
+    img.onload = (e) => {
+        tool.drawImage(img ,0 ,0 , canvas.width , canvas.height);
+    }
+}
+
 
 pencilColorAll.forEach(colorElem => {
     colorElem.addEventListener("click" , (e) =>{
@@ -59,12 +99,18 @@ canvas.addEventListener("mousemove" , (e) =>{
     if(mouseDownFlag){
         drawStroke({
             x:e.clientX ,
-            y:e.clientY
+            y:e.clientY ,
+            color : eraserFlag ? eraserColor : pencilColor ,
+            width : eraserFlag ? eraserWidth : pencilWidth
         })
     }
 })
 canvas.addEventListener("mouseup" , (e) => {
     mouseDownFlag = false;
+
+    let url = canvas.toDataURL();
+    undoRedoTracker.push(url);
+    tracker = undoRedoTracker.length-1;
 })
 
 function beginPath(strokeObj){
@@ -76,3 +122,11 @@ function drawStroke(strokeObj){
     tool.lineTo(strokeObj.x , strokeObj.y);
     tool.stroke();
 }
+
+download.addEventListener("click" , (e) => {
+    let url = canvas.toDataURL();
+    let a = document.createElement("a");
+    a.href = url;
+    a.download = "myBoard.jpg";
+    a.click();
+})
