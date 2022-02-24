@@ -25,6 +25,26 @@ pencilColorAll.forEach(colorElem => {
     })
 })
 
+pencilWidthElem.addEventListener("change" , (e) =>{
+    pencilWidth = pencilWidthElem.value;
+    tool.lineWidth = pencilWidth;
+})
+
+eraserWidthElem.addEventListener("change" , (e) =>{
+    eraserWidth = eraserWidthElem.value;
+    tool.lineWidth = eraserWidth;
+})
+
+eraserImage.addEventListener("click" , (e)=>{
+    if(eraserFlag){
+        tool.strokeStyle = eraserColor;
+        tool.lineWidth = eraserWidth;
+    }else{
+        tool.strokeStyle = pencilColor;
+        tool.lineWidth = pencilWidth;
+    }
+})
+
 let mouseDownFlag = false;
 
 canvas.addEventListener("mousedown" , (e) => {

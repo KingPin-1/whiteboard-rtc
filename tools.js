@@ -56,7 +56,7 @@ pencilImage.addEventListener("click" , (e) => {
 
 eraserImage.addEventListener("click" , (e) => {
     eraserFlag = !eraserFlag;
-    if(!eraserFlag) eraserOptionsContainer.style.display = "flex";
+    if(eraserFlag) eraserOptionsContainer.style.display = "flex";
     else    eraserOptionsContainer.style.display = "none";
 })
 
