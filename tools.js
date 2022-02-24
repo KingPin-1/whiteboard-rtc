@@ -70,9 +70,7 @@ upload.addEventListener("click" , (e) => {
         let file = input.files[0];
         let url = URL.createObjectURL(file);
 
-        let stickyContainer = document.createElement("div");
-        stickyContainer.setAttribute("class" ,"sticky-notes-container");
-        stickyContainer.innerHTML = `
+        let stickyTemplateHTML = `
             <div class="header">
                 <div class="minimize"></div>
                 <div class="remove"></div>
@@ -81,6 +79,30 @@ upload.addEventListener("click" , (e) => {
                 <img src = "${url}" class ="uploaded-image">
             </div>
             `;
+
+        createSticky(stickyTemplateHTML);
+    })
+})
+
+//For Sticky Notes
+sticky.addEventListener("click" , (e) => {
+    let stickyTemplateHTML = `
+        <div class="header">
+            <div class="minimize"></div>
+            <div class="remove"></div>
+        </div>
+        <div class="content-container">
+            <textarea></textarea>
+        </div>
+        `;
+    createSticky(stickyTemplateHTML);
+})
+
+// function to create a sticky note.
+function createSticky(stickyTemplateHTML){
+    let stickyContainer = document.createElement("div");
+        stickyContainer.setAttribute("class" ,"sticky-notes-container");
+        stickyContainer.innerHTML = stickyTemplateHTML;
         document.body.appendChild(stickyContainer);
 
         let remove = stickyContainer.querySelector(".remove");
@@ -94,38 +116,7 @@ upload.addEventListener("click" , (e) => {
         stickyContainer.ondragstart = function() {
             return false;
         };
-
-    })
-})
-
-//For Sticky Notes
-sticky.addEventListener("click" , (e) => {
-    let stickyContainer = document.createElement("div");
-    stickyContainer.setAttribute("class" ,"sticky-notes-container");
-    stickyContainer.innerHTML = `
-    <div class="header">
-        <div class="minimize"></div>
-        <div class="remove"></div>
-    </div>
-    <div class="content-container">
-        <textarea></textarea>
-    </div>
-    `;
-    document.body.appendChild(stickyContainer);
-
-    let remove = stickyContainer.querySelector(".remove");
-    let minimize = stickyContainer.querySelector(".minimize");
-    stickyActions(remove , minimize , stickyContainer);
-
-    stickyContainer.onmousedown = function(event) {
-        dragNDrop(stickyContainer,event);
-      };
-    
-    stickyContainer.ondragstart = function() {
-        return false;
-      };
-})
-
+}
 
 //DRag and drop functionality of sticky notes.
 function dragNDrop(element,event){
