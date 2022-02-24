@@ -27,11 +27,12 @@ tool.lineWidth = pencilWidth;
 undo.addEventListener("click" , (e) => {
     if( tracker > 0 ) tracker--;
     // console.log(tracker);
-    let trackObj = {
+    let data = {
         trackValue : tracker , 
         undoRedoTracker
     } 
-    undoRedoCanvas(trackObj);
+    socket.emit("redoUndo",data);
+    // undoRedoCanvas(trackObj);
 })
 
 redo.addEventListener("click" , (e) => {
@@ -40,7 +41,7 @@ redo.addEventListener("click" , (e) => {
         trackValue : tracker , 
         undoRedoTracker
     } 
-    socket.emit("undoRedo",data);
+    socket.emit("redoUndo",data);
     // undoRedoCanvas(trackObj);
 })
 
@@ -128,6 +129,8 @@ function beginPath(strokeObj){
 
 function drawStroke(strokeObj){
     tool.lineTo(strokeObj.x , strokeObj.y);
+    tool.strokeStyle = strokeObj.color;
+    tool.lineWidth = strokeObj.width;
     tool.stroke();
 }
 
