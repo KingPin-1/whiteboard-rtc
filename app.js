@@ -13,8 +13,6 @@ let server = app.listen(port, () => {
 let io = socket(server);
 io.on('connection', (socket) => {
     console.log('Made socket Connection');
-    //data from front-end
-    //received data
     socket.on('beginPath', (data) => {
         //Transfer data here to all connected computers.
         io.sockets.emit('beginPath', data);
